@@ -168,6 +168,15 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="photo-chop-button">
+                                        <rect key="frame" x="0.0" y="265" width="306" height="29"/>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Custom Cropper"/>
+                                        <connections>
+                                            <action selector="presentCustomCropViewController:" destination="BYZ-38-t0r" eventType="touchUpInside" id="photo-chop-action"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="306" id="UJg-Uh-w9g"/>

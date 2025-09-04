@@ -297,6 +297,14 @@ class ViewController: UIViewController {
         present(cropViewController, animated: true)
     }
     
+    @IBAction func presentCustomCropViewController(_ sender: Any) {
+        guard let image = image else { return }
+        let cropViewController: CustomCropViewController = Mantis.cropViewController(image: image)
+        cropViewController.delegate = self
+        cropViewController.modalPresentationStyle = .fullScreen
+        present(cropViewController, animated: true)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationController = segue.destination as? UINavigationController,
            let embeddedCropViewController = navigationController.viewControllers.first as? EmbeddedCropViewController {

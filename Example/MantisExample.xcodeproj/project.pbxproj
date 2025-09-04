@@ -23,6 +23,7 @@
 		D38FDBDF8FE14BEE4ECFCCBA /* libPods-MantisExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C12649D57221BADDF13056F /* libPods-MantisExampleTests.a */; };
 		F24DCFE529A8FA7F00D8E8C1 /* CustomWaitingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24DCFE429A8FA7F00D8E8C1 /* CustomWaitingIndicator.swift */; };
 		F2C58BD82E03AD08006F92CF /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C58BD72E03AD08006F92CF /* DemoViewController.swift */; };
+		C0DE4F002025090402510003 /* CustomCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE4F002025090402510001 /* CustomCropViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		CCBF2F5F2525B3050081B8FE /* CustomizedCropToolbarWithoutList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizedCropToolbarWithoutList.swift; sourceTree = "<group>"; };
 		F24DCFE429A8FA7F00D8E8C1 /* CustomWaitingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWaitingIndicator.swift; sourceTree = "<group>"; };
 		F2C58BD72E03AD08006F92CF /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		C0DE4F002025090402510001 /* CustomCropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "myapp/CustomCropViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		5FC10B08217A9EDF00582874 = {
 			isa = PBXGroup;
 			children = (
+				C0DE4F002025090402510002 /* myapp */,
 				F2C58BD72E03AD08006F92CF /* DemoViewController.swift */,
 				F24DCFE429A8FA7F00D8E8C1 /* CustomWaitingIndicator.swift */,
 				66F909BC287B601A007E2FC6 /* MyNavigationCropToolbar.swift */,
@@ -146,6 +149,14 @@
 				61C386518C3C25E57F8C83A5 /* Pods-MantisExampleTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C0DE4F002025090402510002 /* myapp */ = {
+			isa = PBXGroup;
+			children = (
+				C0DE4F002025090402510001 /* CustomCropViewController.swift */,
+			);
+			path = myapp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DE4F002025090402510003 /* CustomCropViewController.swift in Sources */,
 				F2C58BD82E03AD08006F92CF /* DemoViewController.swift in Sources */,
 				F24DCFE529A8FA7F00D8E8C1 /* CustomWaitingIndicator.swift in Sources */,
 				5FD045EA245619D400B9D3D2 /* CustomizedCropToolbar.swift in Sources */,
