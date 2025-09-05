@@ -65,7 +65,8 @@ class DemoViewController: UIViewController {
         "Hide Rotation Dial",
         "Dark Background",
         "Light Background",
-        "Color Background"
+        "Color Background",
+        "Custom Crop"
     ]
     
     // MARK: - Lifecycle
@@ -371,7 +372,15 @@ class DemoViewController: UIViewController {
         cropViewController.delegate = self
         present(cropViewController, animated: true)
     }
-    
+
+    @objc private func presentCustomCropViewController() {
+        guard let image = image else { return }
+        let cropViewController: CustomCropViewController = Mantis.cropViewController(image: image)
+        cropViewController.delegate = self
+        cropViewController.modalPresentationStyle = .fullScreen
+        present(cropViewController, animated: true)
+    }
+
     // MARK: - Helper Methods
     
     typealias CropShapeItem = (type: Mantis.CropShapeType, title: String)
@@ -461,6 +470,7 @@ class DemoViewController: UIViewController {
         case 11: return #selector(darkBackgroundAction)
         case 12: return #selector(lightBackgroundAction)
         case 13: return #selector(colorBackgroundAction)
+        case 14: return #selector(presentCustomCropViewController)
         default: return nil
         }
     }
