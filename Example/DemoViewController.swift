@@ -375,7 +375,11 @@ class DemoViewController: UIViewController {
 
     @objc private func presentCustomCropViewController() {
         guard let image = image else { return }
-        let cropViewController: CustomCropViewController = Mantis.cropViewController(image: image)
+
+        let cropToolbar = MyCustomToolbar(frame: .zero)
+
+        let cropViewController: CustomCropViewController = Mantis.cropViewController(image: image,
+                                                                                 cropToolbar: cropToolbar)
         cropViewController.delegate = self
         cropViewController.modalPresentationStyle = .fullScreen
         present(cropViewController, animated: true)
