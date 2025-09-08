@@ -87,7 +87,7 @@ public struct Config {
         return !customRatios.isEmpty
     }
 
-    var customRatioItems: [RatioItemType?] {
+    public var customRatioItems: [RatioItemType?] {
         return customRatios.map {
             RatioItemType(nameH: String("\($0.width):\($0.height)"), ratioH: Double($0.width)/Double($0.height),
                           nameV: String("\($0.height):\($0.width)"), ratioV: Double($0.height)/Double($0.width))
