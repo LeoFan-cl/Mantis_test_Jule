@@ -21,16 +21,16 @@ fileprivate class RatioButton: UIButton {
     }
 }
 
-class MyCustomToolbar: UIView, CropToolbarProtocol {
-    var iconProvider: CropToolbarIconProvider?
-    weak var delegate: CropToolbarDelegate?
-    var config = CropToolbarConfig()
+public class MyCustomToolbar: UIView, CropToolbarProtocol {
+    public var iconProvider: CropToolbarIconProvider?
+    public weak var delegate: CropToolbarDelegate?
+    public var config = CropToolbarConfig()
 
     private var ratioButtons: [RatioButton] = []
     private var resetButton: UIButton!
     private var slideDial: SlideDial!
 
-    func createToolbarUI(config: CropToolbarConfig) {
+    public func createToolbarUI(config: CropToolbarConfig) {
         self.config = config
         backgroundColor = .black
 
@@ -135,21 +135,21 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
         delegate?.didSelectRatio(self, ratio: ratioValue)
     }
 
-    func handleFixedRatioSetted(ratio: Double) {
+    public func handleFixedRatioSetted(ratio: Double) {
         for button in ratioButtons {
             button.isSelected = button.ratio.ratioH == ratio
         }
     }
 
-    func handleFixedRatioUnSetted() {
+    public func handleFixedRatioUnSetted() {
         ratioButtons.forEach { $0.isSelected = false }
     }
 
-    func handleCropViewDidBecomeResettable() {
+    public func handleCropViewDidBecomeResettable() {
         resetButton.isEnabled = true
     }
 
-    func handleCropViewDidBecomeUnResettable() {
+    public func handleCropViewDidBecomeUnResettable() {
         resetButton.isEnabled = false
     }
 
@@ -182,18 +182,18 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
         return button
     }
 
-    func getRatioListPresentSourceView() -> UIView? { return nil }
-    func adjustLayoutWhenOrientationChange() {}
+    public func getRatioListPresentSourceView() -> UIView? { return nil }
+    public func adjustLayoutWhenOrientationChange() {}
 
-    func updateRotationValue(angle: Angle) {
+    public func updateRotationValue(angle: Angle) {
         slideDial.updateRotationValue(by: angle)
     }
 }
 
 
-class CustomCropViewController: CropViewController {
+public class CustomCropViewController: CropViewController {
 
-    required init(config: Mantis.Config = Mantis.Config()) {
+    required public init(config: Mantis.Config = Mantis.Config()) {
         var newConfig = config
 
         newConfig.cropToolbarConfig.includeFixedRatiosSettingButton = false
@@ -213,7 +213,7 @@ class CustomCropViewController: CropViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         if let myToolbar = cropToolbar as? MyCustomToolbar,
