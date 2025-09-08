@@ -17,6 +17,7 @@ public protocol CropViewProtocol: UIView {
     var image: UIImage { get set }
     var aspectRatioLockEnabled: Bool { get set }
     var delegate: CropViewDelegate? { get set }
+    var didUpdateRotation: ((Angle) -> Void)? { get set }
     
     func initialSetup(delegate: CropViewDelegate, presetFixedRatioType: PresetFixedRatioType)
     func setViewDefaultProperties()

@@ -44,7 +44,7 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
         let slideDialViewModel = SlideDialViewModel()
         let slideRuler = SlideRuler(frame: .zero, config: slideDialConfig)
         slideDial = SlideDial(frame: .zero, config: slideDialConfig, viewModel: slideDialViewModel, slideRuler: slideRuler)
-        slideDial.setupUI(withAllowableFrame: CGRect(x: 0, y: 0, width: 280, height: 80))
+        slideDial.setupUI(withAllowableFrame: CGRect(x: 0, y: 0, width: 280, height: 60))
 
         slideDial.didUpdateRotationValue = { [weak cropView] angle in
             cropView?.rotate(by: angle)
@@ -184,6 +184,10 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
 
     func getRatioListPresentSourceView() -> UIView? { return nil }
     func adjustLayoutWhenOrientationChange() {}
+
+    func updateRotationValue(angle: Angle) {
+        slideDial.updateRotationValue(by: angle)
+    }
 }
 
 
@@ -207,5 +211,16 @@ class CustomCropViewController: CropViewController {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let myToolbar = cropToolbar as? MyCustomToolbar,
+           let cropView = self.cropView {
+            cropView.didUpdateRotation = { [weak myToolbar] angle in
+                myToolbar?.updateRotationValue(angle: angle)
+            }
+        }
     }
 }
