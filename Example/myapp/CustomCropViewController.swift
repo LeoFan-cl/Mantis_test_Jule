@@ -28,6 +28,7 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
 
     private var ratioButtons: [RatioButton] = []
     private var resetButton: UIButton!
+    private var slideDial: SlideDial!
     private var undoButton: UIButton!
     private var redoButton: UIButton!
 
@@ -38,6 +39,22 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
         guard let cropViewController = delegate as? CropViewController,
               let cropView = cropViewController.cropView else {
             return
+        }
+
+        // --- Create Slide Dial ---
+        let slideDialConfig = SlideDialConfig()
+        let slideDialViewModel = SlideDialViewModel()
+        let slideRuler = SlideRuler(frame: .zero, config: slideDialConfig)
+        slideDial = SlideDial(frame: .zero, config: slideDialConfig, viewModel: slideDialViewModel, slideRuler: slideRuler)
+        slideDial.setupUI(withAllowableFrame: CGRect(x: 0, y: 0, width: 280, height: 60))
+
+        slideDial.didUpdateRotationValue = { [weak cropView] angle in
+            cropView?.rotate(by: angle)
+        }
+
+        slideDial.didFinishRotation = { [weak cropViewController, weak cropView] in
+            guard let cropViewController = cropViewController, let cropView = cropView else { return }
+            cropViewController.cropView.delegate?.cropViewDidEndResize(cropView)
         }
 
         // --- Create Ratio Selector ---
@@ -96,7 +113,7 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
         bottomToolbarStackView.addArrangedSubview(doneButton)
 
         // --- Main Layout ---
-        let mainStackView = UIStackView(arrangedSubviews: [ratioScrollView, resetButton, bottomToolbarStackView])
+        let mainStackView = UIStackView(arrangedSubviews: [slideDial, ratioScrollView, resetButton, bottomToolbarStackView])
         mainStackView.axis = .vertical
         mainStackView.spacing = 15
 
@@ -107,6 +124,7 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
             mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            slideDial.heightAnchor.constraint(equalToConstant: 60),
             ratioScrollView.heightAnchor.constraint(equalToConstant: 40)
         ])
 
@@ -141,7 +159,7 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
     }
 
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: 180)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 220)
     }
 
     @objc private func reset() { delegate?.didSelectReset(self) }
@@ -172,7 +190,10 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
     public func getRatioListPresentSourceView() -> UIView? { return nil }
     public func adjustLayoutWhenOrientationChange() {}
 
-    // MARK: - Undo/Redo state handling
+    public func updateRotationValue(angle: Angle) {
+        slideDial.updateRotationValue(by: angle)
+    }
+
     public func updateUndoButton(enable: Bool) {
         undoButton.isEnabled = enable
     }
@@ -181,6 +202,7 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
         redoButton.isEnabled = enable
     }
 }
+
 
 public class CustomCropViewController: CropViewController {
 
@@ -207,5 +229,12 @@ public class CustomCropViewController: CropViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
+
+        if let myToolbar = cropToolbar as? MyCustomToolbar,
+           let cropView = self.cropView {
+            cropView.didUpdateRotation = { [weak myToolbar] angle in
+                myToolbar?.updateRotationValue(angle: angle)
+            }
+        }
     }
 }
