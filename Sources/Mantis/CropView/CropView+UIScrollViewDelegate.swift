@@ -9,22 +9,22 @@ import Foundation
 import UIKit
 
 extension CropView: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageContainer
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         delegate?.cropViewDidBeginCrop(self)
         viewModel.setTouchImageStatus()
     }
     
-    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         // A resize event has begun via gesture on the photo (scrollview), so notify delegate
         delegate?.cropViewDidBeginResize(self)
         viewModel.setTouchImageStatus()
     }
     
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         guard !scrollView.subviews.isEmpty else {
             return
         }
@@ -37,11 +37,11 @@ extension CropView: UIScrollViewDelegate {
         subView.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         viewModel.setBetweenOperationStatus()
     }
     
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+    public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
 	        delegate?.cropViewDidEndResize(self)
         makeSureImageContainsCropOverlay()
         
@@ -49,7 +49,7 @@ extension CropView: UIScrollViewDelegate {
         viewModel.setBetweenOperationStatus()
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             viewModel.setBetweenOperationStatus()
         }

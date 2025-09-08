@@ -92,7 +92,7 @@ public final class CropView: UIView {
         print("CropView deinit.")
     }
     
-    public init(
+    init(
         image: UIImage,
         cropViewConfig: CropViewConfig,
         viewModel: CropViewModelProtocol,
@@ -404,7 +404,7 @@ public final class CropView: UIView {
 
 // MARK: - Adjust UI
 extension CropView {
-    func resetComponents() {
+    public func resetComponents() {
         cropMaskViewManager.setup(in: self, cropRatio: CGFloat(getImageHorizontalToVerticalRatio()))
         
         viewModel.resetCropFrame(by: getInitialCropBoxRect())
@@ -677,7 +677,7 @@ extension CropView {
         )
     }
     
-    func makeTransformation() -> Transformation {
+    public func makeTransformation() -> Transformation {
         Transformation(
             offset: cropWorkbenchView.contentOffset,
             rotation: getTotalRadians(),
@@ -824,8 +824,8 @@ extension CropView {
     }
 }
 
-public extension CropView: CropViewProtocol {
-    private func setForceFixedRatio(by presetFixedRatioType: PresetFixedRatioType) {
+extension CropView: CropViewProtocol {
+    public func setForceFixedRatio(by presetFixedRatioType: PresetFixedRatioType) {
         switch presetFixedRatioType {
         case .alwaysUsingOnePresetFixedRatio:
             forceFixedRatio = true

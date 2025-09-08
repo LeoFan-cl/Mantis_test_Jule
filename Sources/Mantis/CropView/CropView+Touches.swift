@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension CropView {
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let newPoint = convert(point, to: self)
         
         if let rotationControlView = rotationControlView, rotationControlView.frame.contains(newPoint) {
@@ -35,7 +35,7 @@ extension CropView {
         && !cropAuxiliaryIndicatorView.frame.insetBy(dx: hotAreaUnit/2, dy: hotAreaUnit/2).contains(touchPoint)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
         guard touches.count == 1, let touch = touches.first else {
@@ -53,7 +53,7 @@ extension CropView {
         viewModel.prepareForCrop(byTouchPoint: point)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         
         guard touches.count == 1, let touch = touches.first else {
@@ -71,7 +71,7 @@ extension CropView {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         
         guard touches.count == 1, let touch = touches.first else {
@@ -97,7 +97,7 @@ extension CropView {
         }
     }
     
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer is UIPanGestureRecognizer {
             return false
         }

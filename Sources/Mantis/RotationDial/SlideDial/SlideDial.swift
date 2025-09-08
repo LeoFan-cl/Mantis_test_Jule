@@ -159,11 +159,11 @@ public final class SlideDial: UIView, RotationControlViewProtocol {
 }
 
 extension SlideDial: SlideRulerDelegate {
-    func didFinishScroll() {
+    public func didFinishScroll() {
         didFinishRotation()
     }
     
-    func didGetOffsetRatio(from slideRuler: SlideRuler, offsetRatio: CGFloat) {
+    public func didGetOffsetRatio(from slideRuler: SlideRuler, offsetRatio: CGFloat) {
         let angle = Angle(degrees: config.limitation * offsetRatio)
         viewModel.rotationAngle = angle
     }

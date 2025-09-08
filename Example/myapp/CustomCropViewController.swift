@@ -52,7 +52,7 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
 
         slideDial.didFinishRotation = { [weak cropViewController, weak cropView] in
             guard let cropViewController = cropViewController, let cropView = cropView else { return }
-            cropViewController.delegate?.cropViewDidEndResize(cropView)
+            cropViewController.cropView.delegate?.cropViewDidEndResize(cropView)
         }
 
         // --- Create Ratio Selector ---
@@ -146,11 +146,11 @@ public class MyCustomToolbar: UIView, CropToolbarProtocol {
     }
 
     public func handleCropViewDidBecomeResettable() {
-        resetButton.isEnabled = true
+        resetButton?.isEnabled = true
     }
 
     public func handleCropViewDidBecomeUnResettable() {
-        resetButton.isEnabled = false
+        resetButton?.isEnabled = false
     }
 
     public override var intrinsicContentSize: CGSize {

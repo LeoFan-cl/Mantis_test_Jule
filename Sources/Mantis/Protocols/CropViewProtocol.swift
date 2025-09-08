@@ -57,7 +57,7 @@ public protocol CropViewProtocol: UIView {
     func zoomOut()
 }
 
-extension CropViewProtocol {
+public extension CropViewProtocol {
     func setViewDefaultProperties() {
         clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false

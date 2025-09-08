@@ -76,7 +76,7 @@ public protocol RotationControlViewProtocol: UIView {
     func getTotalRotationValue() -> CGFloat
 }
 
-extension RotationControlViewProtocol {
+public extension RotationControlViewProtocol {
     func setupUI(withAllowableFrame allowableFrame: CGRect) {}
     func getTouchTarget(with point: CGPoint) -> UIView {
         return self
