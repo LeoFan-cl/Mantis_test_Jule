@@ -44,15 +44,15 @@ class EmbeddedCropViewController: UIViewController {
     }
     
     @IBAction func undoButtonPressed(_ sender: Any) {
-        cropViewController?.undo()
+        cropViewController?.didSelectUndo()
     }
     
     @IBAction func redoButtonPressed(_ sender: Any) {
-        cropViewController?.redo()
+        cropViewController?.didSelectRedo()
     }
     
     @IBAction func resetButtonPressed(_ sender: Any) {
-        cropViewController?.reset()
+        cropViewController?.didSelectReset()
     }
     
     @IBAction func cancel(_ sender: Any) {
