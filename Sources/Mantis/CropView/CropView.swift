@@ -842,7 +842,7 @@ extension CropView: CropViewProtocol {
         return viewModel.getRatioType(byImageIsOriginalHorizontal: isHorizontal)
     }
     
-    func getImageHorizontalToVerticalRatio() -> Double {
+    public func getImageHorizontalToVerticalRatio() -> Double {
         if viewModel.rotationType.isRotatedByMultiple180 {
             return Double(image.horizontalToVerticalRatio())
         } else {

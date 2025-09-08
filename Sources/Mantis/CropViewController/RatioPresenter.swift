@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum RatioType {
+public enum RatioType {
     case horizontal
     case vertical
 }
