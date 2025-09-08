@@ -32,18 +32,19 @@ public protocol CropViewDelegate: AnyObject {
     func cropViewDidBeginCrop(_ cropView: CropViewProtocol)
 }
 
-final class CropView: UIView {
-    var image: UIImage
+public final class CropView: UIView {
+    public var image: UIImage
     
     let viewModel: CropViewModelProtocol
     
-    weak var delegate: CropViewDelegate? {
+    public weak var delegate: CropViewDelegate? {
         didSet {
             checkImageStatusChanged()
         }
     }
     
-    var aspectRatioLockEnabled = false
+    public var aspectRatioLockEnabled = false
+    public var didUpdateRotation: ((Angle) -> Void)?
     
     // Referred to in extension
     let imageContainer: ImageContainerProtocol
@@ -91,7 +92,7 @@ final class CropView: UIView {
         print("CropView deinit.")
     }
     
-    init(
+    public init(
         image: UIImage,
         cropViewConfig: CropViewConfig,
         viewModel: CropViewModelProtocol,
@@ -154,6 +155,7 @@ final class CropView: UIView {
             initialRender()
         case .rotating:
             rotateCropWorkbenchView()
+            didUpdateRotation?(Angle(radians: viewModel.radians))
         case .degree90Rotating:
             cropMaskViewManager.showVisualEffectBackground(animated: true)
             cropAuxiliaryIndicatorView.isHidden = true

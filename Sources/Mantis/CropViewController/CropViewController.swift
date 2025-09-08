@@ -41,7 +41,7 @@ open class CropViewController: UIViewController {
             }
         }
     }
-    var cropToolbar: CropToolbarProtocol!
+    public var cropToolbar: CropToolbarProtocol!
     private var imageAdjustHelper: ImageAutoAdjustHelper?
     
     private var ratioPresenter: RatioPresenter?
