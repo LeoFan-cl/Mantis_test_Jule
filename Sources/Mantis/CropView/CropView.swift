@@ -454,11 +454,11 @@ extension CropView {
         return GeometryHelper.getInscribeRect(fromOutsideRect: outsideRect, andInsideRect: insideRect)
     }
     
-    func zoomIn() {
+    public func zoomIn() {
         cropWorkbenchView.zoomIn(by: cropViewConfig.keyboardZoomScaleFactor)
     }
 
-    func zoomOut() {
+    public func zoomOut() {
         cropWorkbenchView.zoomOut(by: cropViewConfig.keyboardZoomScaleFactor)
     }
     

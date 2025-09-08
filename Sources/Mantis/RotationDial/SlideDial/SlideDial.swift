@@ -122,12 +122,12 @@ public final class SlideDial: UIView, RotationControlViewProtocol {
             
             indicator.isUserInteractionEnabled = true
             
-            let tap = UITapGestureRecognizer(target: self, action: #selector(handleIndicatorTapped))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(indicatorTapped))
             indicator.addGestureRecognizer(tap)
         }
     }
     
-    @objc func handleIndicatorTapped() {
+    @objc public func indicatorTapped() {
         reset()
         didFinishRotation()
     }
