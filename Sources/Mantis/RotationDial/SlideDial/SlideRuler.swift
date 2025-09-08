@@ -11,13 +11,13 @@ import UIKit
 private let scaleWidth: CGFloat = 1
 private let pointerWidth: CGFloat = 1
 
-protocol SlideRulerDelegate: AnyObject {
+public protocol SlideRulerDelegate: AnyObject {
     func didGetOffsetRatio(from slideRuler: SlideRuler, offsetRatio: CGFloat)
     func didFinishScroll()
 }
 
-final class SlideRuler: UIView {
-    var forceAlignCenterFeedback = true
+public final class SlideRuler: UIView {
+    public var forceAlignCenterFeedback = true
     let pointer = CALayer()
     let centralDot = CAShapeLayer()
     let scrollRulerView = UIScrollView()
@@ -37,11 +37,11 @@ final class SlideRuler: UIView {
         return layer
     }()
     
-    weak var delegate: SlideRulerDelegate?
+    public weak var delegate: SlideRulerDelegate?
     var isReset = false
     var offsetValue: CGFloat = 0
     
-    override var bounds: CGRect {
+    override public var bounds: CGRect {
         didSet {
             setUIFrames()
         }
@@ -51,7 +51,7 @@ final class SlideRuler: UIView {
     let scaleColor: CGColor!
     let majorScaleColor: CGColor!
     
-    init(frame: CGRect, config: SlideDialConfig) {
+    public init(frame: CGRect, config: SlideDialConfig) {
         self.config = config
         scaleColor = config.scaleColor.cgColor
         majorScaleColor = config.majorScaleColor.cgColor
@@ -66,7 +66,7 @@ final class SlideRuler: UIView {
         fatalError()
     }
         
-    func setupUI() {
+    public func setupUI() {
         setupSlider()
         makeRuler()
         makeCentralDot()
@@ -173,11 +173,11 @@ final class SlideRuler: UIView {
         centralDot.isHidden = (scrollRulerView.contentOffset.x == frame.width / 2)
     }
     
-    func getTouchTarget() -> UIView {
+    public func getTouchTarget() -> UIView {
         return scrollRulerView
     }
     
-    func setOffsetRatio(_ offsetRatio: CGFloat) {
+    public func setOffsetRatio(_ offsetRatio: CGFloat) {
         scrollRulerView.delegate = nil
         positionInfoHelper.setOffset(offsetRatio: offsetRatio)
         scrollRulerView.delegate = self
@@ -185,16 +185,16 @@ final class SlideRuler: UIView {
 }
 
 extension SlideRuler: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         checkCentralDotHiddenStatus()
         delegate?.didFinishScroll()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         delegate?.didFinishScroll()
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centralDot.isHidden = false
         
         let speed = scrollView.panGestureRecognizer.velocity(in: scrollView.superview)

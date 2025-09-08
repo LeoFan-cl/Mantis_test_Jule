@@ -24,15 +24,15 @@
 
 import UIKit
 
-struct CropState: Equatable {
-    var rotationType: ImageRotationType
-    var degrees: CGFloat
-    var aspectRatioLockEnabled: Bool
-    var aspectRato: CGFloat
-    var flipOddTimes: Bool
-    var transformation: Transformation
+public struct CropState: Equatable {
+    public var rotationType: ImageRotationType
+    public var degrees: CGFloat
+    public var aspectRatioLockEnabled: Bool
+    public var aspectRato: CGFloat
+    public var flipOddTimes: Bool
+    public var transformation: Transformation
     
-    static func == (lhs: CropState, rhs: CropState) -> Bool {
+    public static func == (lhs: CropState, rhs: CropState) -> Bool {
         return lhs.rotationType == rhs.rotationType
         && lhs.degrees == rhs.degrees
         && lhs.aspectRatioLockEnabled == rhs.aspectRatioLockEnabled
@@ -120,7 +120,7 @@ public typealias CropInfo = (
     cropRegion: CropRegion
 )
 
-typealias CropOutput = (
+public typealias CropOutput = (
     croppedImage: UIImage?,
     transformation: Transformation,
     cropInfo: CropInfo

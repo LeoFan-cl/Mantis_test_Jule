@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol CropViewDelegate: AnyObject {
+public protocol CropViewDelegate: AnyObject {
     func cropViewDidBecomeResettable(_ cropView: CropViewProtocol)
     func cropViewDidBecomeUnResettable(_ cropView: CropViewProtocol)
     func cropViewDidBeginResize(_ cropView: CropViewProtocol)
@@ -822,7 +822,7 @@ extension CropView {
     }
 }
 
-extension CropView: CropViewProtocol {
+public extension CropView: CropViewProtocol {
     private func setForceFixedRatio(by presetFixedRatioType: PresetFixedRatioType) {
         switch presetFixedRatioType {
         case .alwaysUsingOnePresetFixedRatio:

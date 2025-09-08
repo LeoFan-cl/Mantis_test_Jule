@@ -7,16 +7,18 @@
 
 import Foundation
 
-final class SlideDialViewModel {
-    var didSetRotationAngle: (Angle) -> Void = { _ in }
+public final class SlideDialViewModel {
+    public var didSetRotationAngle: (Angle) -> Void = { _ in }
     
-    var rotationAngle = Angle(degrees: 0) {
+    public var rotationAngle = Angle(degrees: 0) {
         didSet {
             didSetRotationAngle(rotationAngle)
         }
     }
     
-    func reset() {
+    public func reset() {
         rotationAngle = Angle(degrees: 0)
     }
+
+    public init() {}
 }

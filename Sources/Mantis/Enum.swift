@@ -133,7 +133,7 @@ public enum FixedRatiosShowType {
     case vertical
 }
 
-enum RotateBy90DegreeType {
+public enum RotateBy90DegreeType {
     case clockwise
     case counterClockwise
     

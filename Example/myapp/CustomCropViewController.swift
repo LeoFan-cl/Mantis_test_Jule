@@ -28,6 +28,7 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
 
     private var ratioButtons: [RatioButton] = []
     private var resetButton: UIButton!
+    private var slideDial: SlideDial!
 
     func createToolbarUI(config: CropToolbarConfig) {
         self.config = config
@@ -38,6 +39,23 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
             return
         }
 
+        // --- Create Slide Dial ---
+        let slideDialConfig = SlideDialConfig()
+        let slideDialViewModel = SlideDialViewModel()
+        let slideRuler = SlideRuler(frame: .zero, config: slideDialConfig)
+        slideDial = SlideDial(frame: .zero, config: slideDialConfig, viewModel: slideDialViewModel, slideRuler: slideRuler)
+        slideDial.setupUI(withAllowableFrame: CGRect(x: 0, y: 0, width: 280, height: 80))
+
+        slideDial.didUpdateRotationValue = { [weak cropView] angle in
+            cropView?.rotate(by: angle)
+        }
+
+        slideDial.didFinishRotation = { [weak cropViewController, weak cropView] in
+            guard let cropViewController = cropViewController, let cropView = cropView else { return }
+            cropViewController.delegate?.cropViewDidEndResize(cropView)
+        }
+
+        // --- Create Ratio Selector ---
         let ratioScrollView = UIScrollView()
         ratioScrollView.showsHorizontalScrollIndicator = false
 
@@ -70,9 +88,11 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
             ratioStackView.heightAnchor.constraint(equalTo: ratioScrollView.heightAnchor)
         ])
 
+        // --- Create Reset Button ---
         resetButton = createTextButton(withTitle: "Reset", andAction: #selector(reset))
         resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
 
+        // --- Create Bottom Toolbar ---
         let bottomToolbarStackView = UIStackView()
         bottomToolbarStackView.axis = .horizontal
         bottomToolbarStackView.distribution = .fillEqually
@@ -87,7 +107,8 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
         bottomToolbarStackView.addArrangedSubview(cwButton)
         bottomToolbarStackView.addArrangedSubview(doneButton)
 
-        let mainStackView = UIStackView(arrangedSubviews: [ratioScrollView, resetButton, bottomToolbarStackView])
+        // --- Main Layout ---
+        let mainStackView = UIStackView(arrangedSubviews: [slideDial, ratioScrollView, resetButton, bottomToolbarStackView])
         mainStackView.axis = .vertical
         mainStackView.spacing = 15
 
@@ -98,6 +119,7 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
             mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            slideDial.heightAnchor.constraint(equalToConstant: 60),
             ratioScrollView.heightAnchor.constraint(equalToConstant: 40)
         ])
 
@@ -132,7 +154,7 @@ class MyCustomToolbar: UIView, CropToolbarProtocol {
     }
 
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: 180)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 220)
     }
 
     @objc private func reset() { delegate?.didSelectReset(self) }
@@ -171,7 +193,7 @@ class CustomCropViewController: CropViewController {
         var newConfig = config
 
         newConfig.cropToolbarConfig.includeFixedRatiosSettingButton = false
-        newConfig.cropViewConfig.builtInRotationControlViewType = .slideDial()
+        newConfig.cropViewConfig.showAttachedRotationControlView = false
 
         newConfig.ratioOptions = [.original, .square, .custom]
         newConfig.addCustomRatio(byHorizontalWidth: 9, andHorizontalHeight: 16)

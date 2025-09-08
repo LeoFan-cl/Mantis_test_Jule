@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class SlideDial: UIView, RotationControlViewProtocol {
-    var isAttachedToCropView = true
+public final class SlideDial: UIView, RotationControlViewProtocol {
+    public var isAttachedToCropView = true
     
-    var didUpdateRotationValue: (Angle) -> Void = { _ in }
+    public var didUpdateRotationValue: (Angle) -> Void = { _ in }
     
-    var didFinishRotation: () -> Void = {}
+    public var didFinishRotation: () -> Void = {}
     
     var indicator: UILabel!
     
@@ -20,9 +20,9 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     
     var viewModel = SlideDialViewModel()
     
-    var config = SlideDialConfig()
+    public var config = SlideDialConfig()
     
-    init(frame: CGRect,
+    public init(frame: CGRect,
          config: SlideDialConfig,
          viewModel: SlideDialViewModel,
          slideRuler: SlideRuler) {
@@ -55,7 +55,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     }
     
     @discardableResult
-    func updateRotationValue(by angle: Angle) -> Bool {
+    public func updateRotationValue(by angle: Angle) -> Bool {
         guard abs(angle.degrees) < config.limitation else {
             return false
         }
@@ -66,7 +66,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         return true
     }
     
-    func reset() {
+    public func reset() {
         transform = .identity
         viewModel.reset()
         if let slideRuler = slideRuler {
@@ -74,7 +74,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         }
     }
     
-    func getTouchTarget(with point: CGPoint) -> UIView {
+    public func getTouchTarget(with point: CGPoint) -> UIView {
         let newPoint = convert(point, to: self)
         
         if indicator.frame.contains(newPoint) {
@@ -84,11 +84,11 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         return slideRuler.getTouchTarget()
     }
     
-    func getLengthRatio() -> CGFloat {
+    public func getLengthRatio() -> CGFloat {
         config.lengthRatio
     }
     
-    func handleDeviceRotation() {
+    public func handleDeviceRotation() {
         guard let indicator = indicator else {
             return
         }
@@ -102,7 +102,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         }
     }
             
-    func setupUI(withAllowableFrame allowableFrame: CGRect) {
+    public func setupUI(withAllowableFrame allowableFrame: CGRect) {
         frame = allowableFrame
         createIndicator()
         setupSlideRuler()
@@ -143,17 +143,17 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         slideRuler.setupUI()
     }
     
-    override func accessibilityIncrement() {
+    public override func accessibilityIncrement() {
         viewModel.rotationAngle += Angle(degrees: 1)
         setAccessibilityValue()
     }
     
-    override func accessibilityDecrement() {
+    public override func accessibilityDecrement() {
         viewModel.rotationAngle -= Angle(degrees: -1)
         setAccessibilityValue()
     }
         
-    func getTotalRotationValue() -> CGFloat {
+    public func getTotalRotationValue() -> CGFloat {
         viewModel.rotationAngle.degrees
     }
 }
