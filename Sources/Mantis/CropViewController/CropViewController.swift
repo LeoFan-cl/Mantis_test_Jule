@@ -498,11 +498,11 @@ extension CropViewController: CropViewDelegate {
 
 extension CropViewController: CropToolbarDelegate {
     
-    public func didSelectUndo() {
+    public func didSelectUndo(_ cropToolbar: CropToolbarProtocol? = nil) {
         undo()
     }
     
-    public func didSelectRedo() {
+    public func didSelectRedo(_ cropToolbar: CropToolbarProtocol? = nil) {
         redo()
     }
     
