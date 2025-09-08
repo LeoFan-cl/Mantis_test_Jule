@@ -93,6 +93,8 @@ public protocol CropToolbarProtocol: UIView {
     func handleCropViewDidBecomeUnResettable()
     func handleImageAutoAdjustable()
     func handleImageNotAutoAdjustable()
+    func updateUndoButton(enable: Bool)
+    func updateRedoButton(enable: Bool)
 }
 
 public extension CropToolbarProtocol {
@@ -133,4 +135,6 @@ public extension CropToolbarProtocol {
     func handleImageAutoAdjustable() {}
     
     func handleImageNotAutoAdjustable() {}
+    func updateUndoButton(enable: Bool) {}
+    func updateRedoButton(enable: Bool) {}
 }

@@ -650,12 +650,14 @@ extension CropViewController: TransformDelegate {
    
     func updateEnableStateForUndo(_ enable: Bool) {
         if config.enableUndoRedo {
+            cropToolbar.updateUndoButton(enable: enable)
             delegate?.cropViewController(self, didUpdateEnableStateForUndo: enable)
         }
     }
     
     func updateEnableStateForRedo(_ enable: Bool) {
         if config.enableUndoRedo {
+            cropToolbar.updateRedoButton(enable: enable)
             delegate?.cropViewController(self, didUpdateEnableStateForRedo: enable)
         }
     }
